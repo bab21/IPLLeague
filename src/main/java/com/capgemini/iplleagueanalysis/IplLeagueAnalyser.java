@@ -48,4 +48,12 @@ public class IplLeagueAnalyser {
 		return sortedAvgList;
 	}
 	
+	public List<IplData> getTopStrikingRates(String csvFile) throws Exception {
+		List<IplData> sortedStrikingRateList = IplDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.getSR(), player2.getSR()))
+				.collect(Collectors.toList());
+		Collections.reverse(sortedStrikingRateList);
+		return sortedStrikingRateList;
+	}
+	
 }
