@@ -110,4 +110,24 @@ public class IplLeagueAnalyser {
 		
 		return batmenBestStrikingRateWithGreatestAverage ;
 	}
+	
+	public List<IplData> getMaximumRunWithGreatestAverage() throws IOException{
+		int maximumRun = IplDataList.stream()
+				.map(player ->player.getRuns())
+				.max(Integer::compare)
+				.get();
+		List<IplData> cricketerWithMaximumRun=IplDataList.stream()
+				.filter(player->player.getRuns()==maximumRun)
+				.collect(Collectors.toList());
+		double greatestAverage=cricketerWithMaximumRun.stream()
+				.map(player->player.getAverage())
+				.max(Double::compare)
+				.get();
+		List<IplData> batmenBestStrikingRateWithGreatestAverage =cricketerWithMaximumRun.stream()
+				.filter(player->player.getAverage()==greatestAverage)
+				.collect(Collectors.toList());
+		
+		return batmenBestStrikingRateWithGreatestAverage ;
+	}
+	
 }
