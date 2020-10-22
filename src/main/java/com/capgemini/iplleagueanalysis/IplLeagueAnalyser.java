@@ -91,4 +91,23 @@ public class IplLeagueAnalyser {
 		
 		return batmenBestStrikingRateWithMax4sAnd6s ;
 	}
+	
+	public List<IplData> getGreatestAverageWithBestStrikingRate() throws IOException{
+		double greatestAverage = IplDataList.stream()
+				.map(player ->player.getAverage())
+				.max(Double::compare)
+				.get();
+		List<IplData> cricketerWithGreatestAverage=IplDataList.stream()
+				.filter(player->player.getAverage()==greatestAverage)
+				.collect(Collectors.toList());
+		double bestStrikeRate=cricketerWithGreatestAverage.stream()
+				.map(player->player.getSR())
+				.max(Double::compare)
+				.get();
+		List<IplData> batmenBestStrikingRateWithGreatestAverage =cricketerWithGreatestAverage.stream()
+				.filter(player->player.getSR()==bestStrikeRate)
+				.collect(Collectors.toList());
+		
+		return batmenBestStrikingRateWithGreatestAverage ;
+	}
 }
