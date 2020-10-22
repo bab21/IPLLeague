@@ -69,8 +69,7 @@ public class IplLeagueAnalysisTester {
 	
 	@Test
 	public void givenIplDataCSVFileReturnsCricketersWithMaximumRunAndBestAverages() throws Exception {
-		List<IplData> listOfMaxRun = iplLeagueAnalyser
-				.getMaximumRunWithGreatestAverage();
-		assertEquals("David Warner", listOfMaxRun.get(0).getPlayer());
+		List<IplData> listOfMaxRunAndGreatestAverage = iplLeagueAnalyser.getMaximumRunWithGreatestAverage();
+		assertEquals("David Warner", listOfMaxRunAndGreatestAverage.get(0).getPlayer());
 	}
 }
