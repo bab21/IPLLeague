@@ -8,23 +8,29 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.capgemini.iplleagueanalysis.exception.IplAnalyserException;
+import com.capgemini.iplleagueanalysis.model.BowlingData;
+import com.capgemini.iplleagueanalysis.model.IplData;
+
 public class IplLeagueAnalysisTester {
 	public String FILE_PATH="./IplData.csv";
 	public IplLeagueAnalyser iplLeagueAnalyser;
+	public String FILE_PATH_BOWLING_DATA="./IplDataBowling.csv";
 	
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws IplAnalyserException {
 		iplLeagueAnalyser=new IplLeagueAnalyser();
 		iplLeagueAnalyser.loadDataToList(FILE_PATH);
+		iplLeagueAnalyser.loadBowlingDataToLIst(FILE_PATH_BOWLING_DATA);
 	}
 
 	@Test
-	public void givenIplDataWhenCalculatedBattingAverageShouldReturnExactAnswer() {
+	public void givenIplData_loadData_ShouldReturnExactAnswer() {
 		assertEquals(101,iplLeagueAnalyser.loadCSVData(FILE_PATH));
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsTop3BattingAverages() throws Exception {
+	public void givenIplDataCSVFileReturnsTop3BattingAverages(){
 	
 		List<IplData> topBattingAverage = iplLeagueAnalyser.getTopBattingAverages();
 		assertEquals(83.2, topBattingAverage .get(0).getAverage(), 0.0);
@@ -33,7 +39,7 @@ public class IplLeagueAnalysisTester {
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsTop3StrikeRates() throws Exception {
+	public void givenIplDataCSVFileReturnsTop3StrikeRates(){
 
 		List<IplData> topStrikeRate = iplLeagueAnalyser.getTopStrikingRates();
 		assertEquals(333.33, topStrikeRate.get(0).getSR(), 0.0);
@@ -42,34 +48,43 @@ public class IplLeagueAnalysisTester {
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsCricketerWithMax6s() throws Exception {
+	public void givenIplDataCSVFileReturnsCricketerWithMax6s(){
 		
 		List<IplData> batmenWithMax6s = iplLeagueAnalyser.getTopBatmenWithMax6s();
 		assertEquals("Andre Russell", batmenWithMax6s.get(0).getPlayer());
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsCricketerWithMax4s() throws Exception {
+	public void givenIplDataCSVFileReturnsCricketerWithMax4s(){
 		
 		List<IplData> batmenWithMax4s = iplLeagueAnalyser.getTopBatmenWithMax4s();
-		assertEquals("Shikhar Dhawan", batmenWithMax4s.get(0).player);
+		assertEquals("Shikhar Dhawan", batmenWithMax4s.get(0).getPlayer());
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsBestStrikeRatesWith6sAnd4s() throws Exception {
+	public void givenIplDataCSVFileReturnsBestStrikeRatesWith6sAnd4s(){
 		List<IplData> listOfTopStrikeRate = iplLeagueAnalyser.getCricketerWithBestStrikingRateWith6sAnd4s();
 	    assertEquals("Andre Russell", listOfTopStrikeRate.get(0).getPlayer());
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsCricketersWithGreatAverageAndBestStrikeRates() throws Exception {
+	public void givenIplDataCSVFileReturnsCricketersWithGreatAverageAndBestStrikeRates(){
 		List<IplData> listOfTopAverageWithBestStrikERate = iplLeagueAnalyser.getGreatestAverageWithBestStrikingRate();
 		assertEquals("MS Dhoni", listOfTopAverageWithBestStrikERate.get(0).getPlayer());
 	}
 	
 	@Test
-	public void givenIplDataCSVFileReturnsCricketersWithMaximumRunAndBestAverages() throws Exception {
+	public void givenIplDataCSVFileReturnsCricketersWithMaximumRunAndBestAverages(){
 		List<IplData> listOfMaxRunAndGreatestAverage = iplLeagueAnalyser.getMaximumRunWithGreatestAverage();
 		assertEquals("David Warner", listOfMaxRunAndGreatestAverage.get(0).getPlayer());
+	}
+	
+	//UC7...
+	@Test
+	public void givenIplBowlingData_SortBowlingDataAccordingToAverage_ReturnSameList() {
+		List<BowlingData> listOfTopBowlingAverage = iplLeagueAnalyser. getTopBowlingAverages();
+		assertEquals("Krishnappa Gowtham",listOfTopBowlingAverage.get(0).player);
+		assertEquals("Tim Southee",listOfTopBowlingAverage.get(1).player);
+		assertEquals("Prasidh Krishna",listOfTopBowlingAverage.get(2).player);
 	}
 }

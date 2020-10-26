@@ -1,4 +1,4 @@
-package com.capgemini.iplleagueanalysis;
+package com.capgemini.iplleagueanalysis.model;
 
 import com.opencsv.bean.CsvBindByName;
 

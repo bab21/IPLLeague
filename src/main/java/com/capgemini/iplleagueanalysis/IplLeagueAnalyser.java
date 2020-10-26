@@ -12,12 +12,16 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import java.util.*;
 
+import com.capgemini.iplleagueanalysis.exception.IplAnalyserException;
+import com.capgemini.iplleagueanalysis.model.BowlingData;
+import com.capgemini.iplleagueanalysis.model.IplData;
 import com.capgemini.opencsv.OpenCSVBuilder;
 
 
 public class IplLeagueAnalyser {
 	
 	public static List<IplData> IplDataList;
+	public static List<BowlingData> IplBowlingDataList;
 	
 	public int loadCSVData(String csvFile) {
 		int numOfEntries=0;
@@ -35,12 +39,27 @@ public class IplLeagueAnalyser {
 		return numOfEntries;
 	}
 	
-	public void loadDataToList(String csvFile) throws IOException {
-		Reader reader=Files.newBufferedReader(Paths.get(csvFile));
-	    IplDataList = new CsvToBeanBuilder(reader).withType(IplData.class).build().parse();
+	public void loadDataToList(String csvFile) throws IplAnalyserException {
+		try {
+			Reader reader=Files.newBufferedReader(Paths.get(csvFile));
+		    IplDataList = new CsvToBeanBuilder(reader).withType(IplData.class).build().parse();
+		}
+		catch(IOException e) {
+			throw new IplAnalyserException("File path is incorrect",IplAnalyserException.ExceptionType.FILE_INCORRECT);
+		}
 	}
 	
-	public List<IplData> getTopBattingAverages() throws Exception {
+	public void loadBowlingDataToLIst(String csvFile)throws IplAnalyserException{
+		try {
+			Reader reader=Files.newBufferedReader(Paths.get(csvFile));
+		    IplBowlingDataList = new CsvToBeanBuilder(reader).withType(BowlingData.class).build().parse();
+		}
+		catch(IOException e) {
+			throw new IplAnalyserException("File path is incorrect",IplAnalyserException.ExceptionType.FILE_INCORRECT);
+		}
+	}
+	
+	public List<IplData> getTopBattingAverages(){
 		List<IplData> sortedAvgList = IplDataList.stream()
 				.sorted((player1, player2) -> Double.compare(player1.getAverage(), player2.getAverage()))
 				.collect(Collectors.toList());
@@ -48,7 +67,16 @@ public class IplLeagueAnalyser {
 		return sortedAvgList;
 	}
 	
-	public List<IplData> getTopStrikingRates() throws IOException {
+	//UC7......
+	public List<BowlingData> getTopBowlingAverages(){
+		List<BowlingData> sortedAvgBowlingList = IplBowlingDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.avg, player2.avg))
+				.collect(Collectors.toList());
+		Collections.reverse(sortedAvgBowlingList);
+		return sortedAvgBowlingList;
+	}
+	
+	public List<IplData> getTopStrikingRates() {
 		List<IplData> sortedStrikingRateList = IplDataList.stream()
 				.sorted((player1, player2) -> Double.compare(player1.getSR(), player2.getSR()))
 				.collect(Collectors.toList());
@@ -56,7 +84,7 @@ public class IplLeagueAnalyser {
 		return sortedStrikingRateList;
 	}
 	
-	public List<IplData> getTopBatmenWithMax6s() throws IOException {
+	public List<IplData> getTopBatmenWithMax6s(){
 		List<IplData> batmenWithMax6s = IplDataList.stream()
 				.sorted((player1, player2) -> Double.compare(player1.get6s(), player2.get6s()))
 				.collect(Collectors.toList());
@@ -64,14 +92,14 @@ public class IplLeagueAnalyser {
 		return batmenWithMax6s ;
 	}
 	
-	public List<IplData> getTopBatmenWithMax4s() throws IOException {
+	public List<IplData> getTopBatmenWithMax4s(){
 		List<IplData> batmenWithMax4s = IplDataList.stream()
 				.sorted((player1, player2) -> Double.compare(player1.get4s(), player2.get4s()))
 				.collect(Collectors.toList());
 		Collections.reverse(batmenWithMax4s);
 		return batmenWithMax4s ;
 	}
-	public List<IplData> getCricketerWithBestStrikingRateWith6sAnd4s()throws IOException{
+	public List<IplData> getCricketerWithBestStrikingRateWith6sAnd4s(){
 		int max4sAnd6s = IplDataList.stream()
 				.map(player -> (player.get4s()+player.get6s()))
 				.max(Integer::compare)
@@ -92,7 +120,7 @@ public class IplLeagueAnalyser {
 		return batmenBestStrikingRateWithMax4sAnd6s ;
 	}
 	
-	public List<IplData> getGreatestAverageWithBestStrikingRate() throws IOException{
+	public List<IplData> getGreatestAverageWithBestStrikingRate(){
 		double greatestAverage = IplDataList.stream()
 				.map(player ->player.getAverage())
 				.max(Double::compare)
@@ -111,7 +139,7 @@ public class IplLeagueAnalyser {
 		return batmenBestStrikingRateWithGreatestAverage ;
 	}
 	
-	public List<IplData> getMaximumRunWithGreatestAverage() throws IOException{
+	public List<IplData> getMaximumRunWithGreatestAverage(){
 		int maximumRun = IplDataList.stream()
 				.map(player ->player.getRuns())
 				.max(Integer::compare)
