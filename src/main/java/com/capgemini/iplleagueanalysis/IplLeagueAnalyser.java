@@ -92,6 +92,16 @@ public class IplLeagueAnalyser {
 		return sortedBowlingStrikingRateList;
 	}
 	
+	//UC9....
+	
+	public List<BowlingData> getTopBowlerWithBestEconomy(){
+		List<BowlingData> sortedBowlerWithBestEconomy = IplBowlingDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.econ, player2.econ))
+				.collect(Collectors.toList());
+		return sortedBowlerWithBestEconomy;
+	}
+	
+	
 	public List<IplData> getTopBatmenWithMax6s(){
 		List<IplData> batmenWithMax6s = IplDataList.stream()
 				.sorted((player1, player2) -> Double.compare(player1.get6s(), player2.get6s()))
