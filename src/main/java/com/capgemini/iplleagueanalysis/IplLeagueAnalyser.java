@@ -70,9 +70,9 @@ public class IplLeagueAnalyser {
 	//UC7......
 	public List<BowlingData> getTopBowlingAverages(){
 		List<BowlingData> sortedAvgBowlingList = IplBowlingDataList.stream()
+				.filter(player->player.avg!=0)
 				.sorted((player1, player2) -> Double.compare(player1.avg, player2.avg))
 				.collect(Collectors.toList());
-		Collections.reverse(sortedAvgBowlingList);
 		return sortedAvgBowlingList;
 	}
 	
@@ -82,6 +82,14 @@ public class IplLeagueAnalyser {
 				.collect(Collectors.toList());
 		Collections.reverse(sortedStrikingRateList);
 		return sortedStrikingRateList;
+	}
+	
+	public List<BowlingData> getTopBowlingStrikeRates(){
+		List<BowlingData> sortedBowlingStrikingRateList = IplBowlingDataList.stream()
+				.filter(player->player.sr!=0)
+				.sorted((player1, player2) -> Double.compare(player1.sr, player2.sr))
+				.collect(Collectors.toList());
+		return sortedBowlingStrikingRateList;
 	}
 	
 	public List<IplData> getTopBatmenWithMax6s(){

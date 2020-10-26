@@ -83,8 +83,17 @@ public class IplLeagueAnalysisTester {
 	@Test
 	public void givenIplBowlingData_SortBowlingDataAccordingToAverage_ReturnSameList() {
 		List<BowlingData> listOfTopBowlingAverage = iplLeagueAnalyser. getTopBowlingAverages();
-		assertEquals("Krishnappa Gowtham",listOfTopBowlingAverage.get(0).player);
-		assertEquals("Tim Southee",listOfTopBowlingAverage.get(1).player);
-		assertEquals("Prasidh Krishna",listOfTopBowlingAverage.get(2).player);
+		assertEquals("Anukul Roy",listOfTopBowlingAverage.get(0).player);
+		assertEquals("Jagadeesha Suchith",listOfTopBowlingAverage.get(1).player);
+		assertEquals("Alzarri Joseph",listOfTopBowlingAverage.get(2).player);
+	}
+	
+	//UC8....
+	@Test
+	public void givenIplBowlingData_SortBowlingDataAccordingToStrikeRate_ReturnSameList() {
+		List<BowlingData> listOfTopBowlingStrikeRate = iplLeagueAnalyser.getTopBowlingStrikeRates();
+		assertEquals("Alzarri Joseph",listOfTopBowlingStrikeRate.get(0).player);
+     	assertEquals("Ish Sodhi",listOfTopBowlingStrikeRate.get(1).player);
+		assertEquals("Khaleel Ahmed",listOfTopBowlingStrikeRate.get(2).player);
 	}
 }
