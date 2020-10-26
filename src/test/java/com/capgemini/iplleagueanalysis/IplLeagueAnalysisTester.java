@@ -117,4 +117,11 @@ public class IplLeagueAnalysisTester {
 		List<BowlingData> listOfTopBowlersWithBestStrikeRateAndAverage = iplLeagueAnalyser.getBowlersWithStrikeRateAndBestAverage();
     	assertEquals("Anukul Roy",listOfTopBowlersWithBestStrikeRateAndAverage.get(0).player);
 	}
+
+	//UC12.....
+	@Test
+	public void givenIplBowlingData_SortWithMaxWicketsAndGreatAverage_ReturnSameList() {
+		List<BowlingData> listOfBowlersWithMaximumWicketsAndGreatAverage=iplLeagueAnalyser.getBowlersWithMaxWicketsAndBestAverage();
+		assertEquals("Imran Tahir",listOfBowlersWithMaximumWicketsAndGreatAverage.get(0).player);
+	}
 }
