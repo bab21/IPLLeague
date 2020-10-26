@@ -103,4 +103,11 @@ public class IplLeagueAnalysisTester {
 		List<BowlingData> listOfTopBowlersWithBestEconomy = iplLeagueAnalyser.getTopBowlerWithBestEconomy();
 		assertEquals("Shivam Dube",listOfTopBowlersWithBestEconomy.get(0).player);
 	}
+	
+   //UC10....
+	@Test
+	public void givenIplBowlingData_SortBowlingDataAccordingToBestEconomyWithMax4wAnd5w_ReturnSameList() {
+		List<BowlingData> listOfTopBowlersWithBestStrikeRateANdMax4w5w = iplLeagueAnalyser.getBowlersWithBestStrikeRateWithMax4wAnd5w();
+		assertEquals("Kagiso Rabada",listOfTopBowlersWithBestStrikeRateANdMax4w5w.get(0).player);
+	}
 }
