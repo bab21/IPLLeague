@@ -130,7 +130,14 @@ public class IplLeagueAnalysisTester {
 	public void givenBattingAndBowlingData_whenSortedOnBestBattingAndBowlingAverage_ShouldReturnCorrectList() {
 		List<String> playersWithBestBattingAndBowlingAverage=iplLeagueAnalyser.getBestBattingAndBowlingAverage();
 		assertEquals("Andre Russell", playersWithBestBattingAndBowlingAverage.get(0));
-	    assertEquals("Marcus Stoinis", playersWithBestBattingAndBowlingAverage.get(1));
-		
+	    assertEquals("Marcus Stoinis", playersWithBestBattingAndBowlingAverage.get(1));	
+	}
+	
+	//UC14...
+	@Test
+	public void givenBattingAndBowlingData_whenSortedOnMostRunsAndMostWicket_ShouldReturnCorrectList() {
+		List<String> playerWithMostRunAndMostWicket=iplLeagueAnalyser.getPlayerWithMostRunAndMostWicket();
+		assertEquals("Andre Russell", playerWithMostRunAndMostWicket.get(0));
+		assertEquals("Hardik Pandya", playerWithMostRunAndMostWicket.get(1));
 	}
 }

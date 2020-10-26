@@ -210,6 +210,7 @@ public class IplLeagueAnalyser {
 		return batmenBestStrikingRateWithGreatestAverage ;
 	}
 	
+	//UC13....
 	public List<String> getBestBattingAndBowlingAverage(){
 		
 		List<String> bestBattingAndBowlingAverage=new ArrayList<>();
@@ -232,6 +233,30 @@ public class IplLeagueAnalyser {
 			}
 		}
 		return bestBattingAndBowlingAverage;		
+	}
+	
+	//UC14....
+	public List<String> getPlayerWithMostRunAndMostWicket(){
+        List<String> playerWithMostRunAndMostWickets=new ArrayList<>();
+		
+		List<IplData> playerWithMostRun = IplDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.runs,player2.runs))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMostRun);
+		
+		List<BowlingData> playerWithMostWicket=IplBowlingDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.wkts, player2.wkts))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMostWicket);
+		
+		for (IplData batter : playerWithMostRun) {
+			for (BowlingData bowler : playerWithMostWicket) {
+				if (batter.player.equals(bowler.player)) {
+					playerWithMostRunAndMostWickets.add(batter.player);
+				}
+			}
+		}
+		return playerWithMostRunAndMostWickets;
 	}
 	
 }
