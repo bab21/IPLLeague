@@ -116,6 +116,15 @@ public class IplLeagueAnalyser {
 		
 	   return sortedWithBestStrikeRateAndMax4wAnd5w;
 	}
+	//UC11....
+	
+	public List<BowlingData> getBowlersWithStrikeRateAndBestAverage(){
+		List<BowlingData> sortedStrikeRateAndAverageList = IplBowlingDataList.stream()
+				.filter(player->player.avg!=0 && player.sr!=0)
+				.sorted((player1, player2) -> Double.compare(player1.sr+player1.avg, player2.sr+player2.avg))
+				.collect(Collectors.toList());
+		return sortedStrikeRateAndAverageList;
+	}
 	
 	
 	public List<IplData> getTopBatmenWithMax6s(){

@@ -110,4 +110,11 @@ public class IplLeagueAnalysisTester {
 		List<BowlingData> listOfTopBowlersWithBestStrikeRateANdMax4w5w = iplLeagueAnalyser.getBowlersWithBestStrikeRateWithMax4wAnd5w();
 		assertEquals("Kagiso Rabada",listOfTopBowlersWithBestStrikeRateANdMax4w5w.get(0).player);
 	}
+	
+	//UC11....
+	@Test
+	public void givenIplBowlingData_SortBowlingDataAccordingToBestStrikeRateAndAverage_ReturnSameList() {
+		List<BowlingData> listOfTopBowlersWithBestStrikeRateAndAverage = iplLeagueAnalyser.getBowlersWithStrikeRateAndBestAverage();
+    	assertEquals("Anukul Roy",listOfTopBowlersWithBestStrikeRateAndAverage.get(0).player);
+	}
 }
