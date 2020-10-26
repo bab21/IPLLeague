@@ -259,4 +259,23 @@ public class IplLeagueAnalyser {
 		return playerWithMostRunAndMostWickets;
 	}
 	
+	//UC15...
+	public List<IplData> getPlayerWithMax100AndBestBattingAverage(){
+		int highestCenturies=IplDataList.stream()
+				.map(player->player.num100)
+				.max(Integer::compare)
+				.get();
+		
+		double highestAverage=IplDataList.stream()
+				.map(player->player.avg)
+				.max(Double::compare)
+				.get();
+	
+		List<IplData> batmenWithMaxCenturyAndBestBattingAverage = IplDataList.stream()
+				.sorted((player1, player2) -> Double.compare(((player1.num100/highestCenturies)+(player1.avg/highestAverage)), ((player2.num100/highestCenturies)+(player2.avg/highestAverage))))
+				.collect(Collectors.toList());
+		Collections.reverse(batmenWithMaxCenturyAndBestBattingAverage);
+		return batmenWithMaxCenturyAndBestBattingAverage;
+	}
+	
 }
