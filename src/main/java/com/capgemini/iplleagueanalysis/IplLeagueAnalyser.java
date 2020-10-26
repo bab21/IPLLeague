@@ -210,4 +210,28 @@ public class IplLeagueAnalyser {
 		return batmenBestStrikingRateWithGreatestAverage ;
 	}
 	
+	public List<String> getBestBattingAndBowlingAverage(){
+		
+		List<String> bestBattingAndBowlingAverage=new ArrayList<>();
+		
+		List<IplData> bestBattingAvg = IplDataList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.avg,player2.avg))
+				.collect(Collectors.toList());
+		Collections.reverse(bestBattingAvg);
+		
+		List<BowlingData> bestBowlingAvg=IplBowlingDataList.stream()
+				.filter(player->player.avg!=0)
+				.sorted((player1, player2) -> Double.compare(player1.avg, player2.avg))
+				.collect(Collectors.toList());
+		
+		for (IplData batter : bestBattingAvg) {
+			for (BowlingData bowler : bestBowlingAvg) {
+				if (batter.player.equals(bowler.player)) {
+					bestBattingAndBowlingAverage.add(batter.player);
+				}
+			}
+		}
+		return bestBattingAndBowlingAverage;		
+	}
+	
 }
